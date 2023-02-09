@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#F38787">
+
+    <TextView
+        android:id="@+id/listItemText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:allowUndo="true"
+        android:backgroundTint="#EA9292"
+        android:clickable="true"
+        android:text="To do list item"
+        android:textColor="#4CAF50"
+        app:autoSizeTextType="uniform" />
+
+</LinearLayout>
