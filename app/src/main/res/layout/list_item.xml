@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:backgroundTint="#F38787">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/listItemText"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:allowUndo="true"
-        android:backgroundTint="#EA9292"
-        android:clickable="true"
-        android:text="To do list item"
-        android:textColor="#4CAF50"
-        app:autoSizeTextType="uniform" />
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/material_dynamic_neutral95"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/listItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:paddingBottom="5dp"
+            android:text="Test"
+            android:textColor="@color/material_dynamic_neutral10"
+            android:textColorHighlight="@color/white"
+            android:textSize="40sp" />
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
