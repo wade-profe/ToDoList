@@ -30,5 +30,5 @@
         android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/editTextNewItem"
         app:layout_constraintVertical_weight="1"
-        tools:layout_editor_absoluteX="10dp" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

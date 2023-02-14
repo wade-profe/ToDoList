@@ -22,22 +22,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         mainBinding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-        adapter = ToDoListAdapter(toDoList, this@MainActivity)
+        adapter = ToDoListAdapter(toDoList)
         mainBinding.recyclerView.adapter = adapter
 
         mainBinding.editTextNewItem.setOnKeyListener(View.OnKeyListener{v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP && mainBinding.editTextNewItem.text.length>0) {
-                println(toDoList)
                 toDoList.add(mainBinding.editTextNewItem.text.toString())
                 mainBinding.editTextNewItem.text.clear()
-                adapter.notifyDataSetChanged()
+                adapter.notifyItemInserted(toDoList.size-1)
                 return@OnKeyListener true
             }
             false
         })
-
-
-
 
     }
 }

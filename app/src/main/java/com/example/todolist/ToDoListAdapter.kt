@@ -5,15 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 class ToDoListAdapter(
     var todoList:ArrayList<String>,
-    var context: Context
 ): RecyclerView.Adapter<ToDoListAdapter.ListItemViewHolder>()
 {
 
     class ListItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        var cardView: CardView = itemView.findViewById(R.id.cardView)
         var listItemText: TextView = itemView.findViewById(R.id.listItemText)
     }
 
@@ -25,9 +26,9 @@ class ToDoListAdapter(
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
         holder.listItemText.text = todoList.get(position)
 
-        holder.listItemText.setOnClickListener{
+        holder.cardView.setOnClickListener{
             todoList.removeAt(position)
-            notifyItemRangeRemoved(0, itemCount+1)
+            notifyItemRangeChanged(0, todoList.size+1)
         }
     }
 
