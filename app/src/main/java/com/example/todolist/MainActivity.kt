@@ -36,4 +36,46 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        sharedPreferences = this.getSharedPreferences("saveData", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        println("onDestroy toDoList contents:" + toDoList)
+        if(toDoList.size>0){
+            for(i in toDoList.indices){
+                editor.putString("item " + i, toDoList.get(i))
+            }
+        }
+        editor.apply()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun onResume() {
+        super.onResume()
+        println("onResume toDoList before retrieval: " + toDoList)
+        sharedPreferences = this.getSharedPreferences("saveData", MODE_PRIVATE)
+        println("onResume sharedPrefs contents: " + sharedPreferences.all)
+        val savedData: Map<String, String>  = sharedPreferences.all as Map<String, String>
+
+        savedData.forEach { entry ->
+            toDoList.add(entry.value)
+        }
+
+        println("onResume toDoList after retrieval: " + toDoList)
+
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        println("onPause called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        println("onStop called")
+    }
+
 }
