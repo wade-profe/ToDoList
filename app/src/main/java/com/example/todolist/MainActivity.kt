@@ -3,6 +3,7 @@ package com.example.todolist
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,13 @@ class MainActivity : AppCompatActivity() {
         adapter = ToDoListAdapter(toDoList)
         mainBinding.recyclerView.adapter = adapter
 
+        sharedPreferences = this.getSharedPreferences("saveData", MODE_PRIVATE)
+        val savedData: Map<String, String>  = sharedPreferences.all as Map<String, String>
+
+        savedData.forEach { entry ->
+            toDoList.add(entry.value)
+        }
+
         mainBinding.editTextNewItem.setOnKeyListener(View.OnKeyListener{v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP && mainBinding.editTextNewItem.text.length>0) {
                 toDoList.add(mainBinding.editTextNewItem.text.toString())
@@ -41,41 +49,17 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         sharedPreferences = this.getSharedPreferences("saveData", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
+        editor.clear().apply()
 
-        println("onDestroy toDoList contents:" + toDoList)
+
         if(toDoList.size>0){
-            for(i in toDoList.indices){
+            for(i in toDoList.indices ){
                 editor.putString("item " + i, toDoList.get(i))
             }
         }
         editor.apply()
+        toDoList.clear()
     }
 
-    @Suppress("UNCHECKED_CAST")
-    override fun onResume() {
-        super.onResume()
-        println("onResume toDoList before retrieval: " + toDoList)
-        sharedPreferences = this.getSharedPreferences("saveData", MODE_PRIVATE)
-        println("onResume sharedPrefs contents: " + sharedPreferences.all)
-        val savedData: Map<String, String>  = sharedPreferences.all as Map<String, String>
-
-        savedData.forEach { entry ->
-            toDoList.add(entry.value)
-        }
-
-        println("onResume toDoList after retrieval: " + toDoList)
-
-        adapter.notifyDataSetChanged()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        println("onPause called")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        println("onStop called")
-    }
 
 }
