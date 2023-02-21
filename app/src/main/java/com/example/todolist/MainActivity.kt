@@ -23,14 +23,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         mainBinding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-        adapter = ToDoListAdapter(toDoList)
+        adapter = ToDoListAdapter(toDoList, this@MainActivity)
         mainBinding.recyclerView.adapter = adapter
 
         sharedPreferences = this.getSharedPreferences("saveData", MODE_PRIVATE)
-        val savedData: Map<String, String>  = sharedPreferences.all as Map<String, String>
-
-        savedData.forEach { entry ->
-            toDoList.add(entry.value)
+        if(sharedPreferences.all.isNotEmpty()) {
+            for (i in 0..sharedPreferences.all.size - 1) {
+                toDoList.add(sharedPreferences.getString("item $i", null)!!)
+            }
         }
 
         mainBinding.editTextNewItem.setOnKeyListener(View.OnKeyListener{v, keyCode, event ->
@@ -60,6 +60,5 @@ class MainActivity : AppCompatActivity() {
         editor.apply()
         toDoList.clear()
     }
-
 
 }
